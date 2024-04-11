@@ -7,14 +7,44 @@ document.addEventListener('DOMContentLoaded', function() {
         loadData("https://docs.google.com/spreadsheets/d/e/2PACX-1vR9KmvTArEvOntjGpzFbpai7tfGCE4atG7cre5BiG_CEhMQw7cOo6bz-SmgJRY7rGCP7ERnRywkwiw7/pub?gid=402113435&cachebeater=6&single=true&output=csv"),
         loadData("https://docs.google.com/spreadsheets/d/e/2PACX-1vR9KmvTArEvOntjGpzFbpai7tfGCE4atG7cre5BiG_CEhMQw7cOo6bz-SmgJRY7rGCP7ERnRywkwiw7/pub?gid=1918593179&cachebeater=7&single=true&output=csv")
     ]).then(function(results) {
-      // Merge data from all CSV files
-      data = { SampleLog: results[1], GeoLabels: results[3] };
-      var mergedData = mergeData(results.map(function(result) {
-          return result.data;
+     // Merge data from all CSV files
+        // data = { SampleLog: results[1], GeoLabels: results[3] };
+        // var mergedData = mergeData(results.map(function(result) {
+        //     return result.data;
 
-      }));
+        // }));
 
-     
+        function mergeDatasets(data1, data2, key1, key2) {
+        // Create an object to store data2 by its key
+        const data2ByKey = {};
+        data2.forEach((item) => {
+          data2ByKey[item[key2]] = item;
+        });
+
+        // Iterate over data1 and merge with corresponding data2
+        const mergedData = data1.map((item1) => {
+          const keyVal = item1[key1];
+          const matchedItem2 = data2ByKey[keyVal];
+          if (matchedItem2) {
+            // Merge item1 with matchedItem2
+            return { ...item1, ...matchedItem2 };
+          } else {
+            // If no match found, return item1 as is
+            return item1;
+          }
+        });
+
+        return mergedData;
+      }
+
+      // Usage
+      const mergedData = mergeDatasets(
+        results[3]?.data,
+        results[1]?.data,
+        "Key",
+        "SampleSite"
+      );
+      console.log(mergedData);
       console.log("SampleLog", results[1]);
       console.log("GeoLabels", results[3]);
 
@@ -23,11 +53,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
       // Extract latitude and E. Coli levels
       var ecoliData = mergedData.map(function (item) {
+        console.log("Item:", item);
+
         console.log("Latitude:", item.Latitude);
-        console.log("Ecoli:", item["E coli"]);
+        console.log("Ecoli:", item["E coli (MPN/100mL)"]);
         return {
           latitude: parseFloat(item.Latitude),
-          ecoli: parseFloat(item["E coli"]),
+          ecoli: parseFloat(item["E coli (MPN/100mL)"]),
         };
       });
 

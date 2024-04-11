@@ -1,7 +1,7 @@
    /* Add CSS styles for your visualizations */
    #map-container {
     height: 400px;
-    border: 1px solid #ddd; /* Add border */
+    border: 1px solid #1e08e6; /* Add border */
     border-radius: 10px; /* Add border radius */
     margin-bottom: 50px; /* Add margin bottom */
 }
@@ -9,13 +9,13 @@
 #bar-chart-container {
     margin-top: 20px;
     padding: 20px; /* Add padding */
-    background-color: #73eaff; /* Add background color */
-    border: 1px solid #ddd; /* Add border */
+    background-color: #c1c8f3; /* Add background color */
+    border: 1px solid #03ff29; /* Add border */
     border-radius: 10px; /* Add border radius */
 }
 
 .bar {
-    fill: rgb(87, 159, 218);
+    fill: rgb(241, 6, 6);
 }
 
 .bar:hover {
