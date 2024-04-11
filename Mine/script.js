@@ -9,40 +9,12 @@ document.addEventListener('DOMContentLoaded', function() {
     ]).then(function(results) {
       // Merge data from all CSV files
       data = { SampleLog: results[1], GeoLabels: results[3] };
-      // var mergedData = mergeData(results.map(function(result) {
-      //     return result.data;
+      var mergedData = mergeData(results.map(function(result) {
+          return result.data;
 
-      // }));
+      }));
 
-      // Define a function to merge the datasets
-      function mergeDatasets(data1, data2, key1, key2) {
-        // Trim whitespace from SampleSite values in data2 and create data2ByKey
-        const data2ByKey = data2.reduce((acc, item) => {
-          const trimmedSampleSite = item[key2].trim(); // Trim whitespace
-          acc[trimmedSampleSite] = item;
-          return acc;
-        }, {});
-
-        // Merge data1 with corresponding data2
-        const mergedData = data1.map((item1) => {
-          const keyVal = item1[key1];
-          const matchedItem2 = data2ByKey[keyVal];
-          if (matchedItem2) {
-            // Merge item1 with matchedItem2
-            return Object.assign({}, item1, matchedItem2);
-          } else {
-            // If no match found, return item1 as is
-            return item1;
-          }
-        });
-
-        return mergedData;
-      }
-
-      // Usage
-      const mergedData = mergeDatasets(results[3], results[1], 'Key', 'SampleSite');
-        console.log('heheehe',mergedData);
-        
+     
       console.log("SampleLog", results[1]);
       console.log("GeoLabels", results[3]);
 
