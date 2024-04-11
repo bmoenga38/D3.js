@@ -1,0 +1,23 @@
+   /* Add CSS styles for your visualizations */
+   #map-container {
+    height: 400px;
+    border: 1px solid #ddd; /* Add border */
+    border-radius: 10px; /* Add border radius */
+    margin-bottom: 50px; /* Add margin bottom */
+}
+
+#bar-chart-container {
+    margin-top: 20px;
+    padding: 20px; /* Add padding */
+    background-color: #73eaff; /* Add background color */
+    border: 1px solid #ddd; /* Add border */
+    border-radius: 10px; /* Add border radius */
+}
+
+.bar {
+    fill: rgb(87, 159, 218);
+}
+
+.bar:hover {
+    fill: orange;
+}
