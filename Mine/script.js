@@ -56,13 +56,17 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log("Item:", item);
 
         console.log("Latitude:", item.Latitude);
-        console.log("Ecoli:", item["E coli (MPN/100mL)"]);
+        console.log("Ecoli:", item["Ecoli (MPN/100mL)"]);
+
+        // Extracting the E. Coli value and removing any non-numeric characters
         return {
           latitude: parseFloat(item.Latitude),
-          ecoli: parseFloat(item["E coli (MPN/100mL)"]),
+          ecoli: parseFloat(item["Ecoli (MPN/100mL)"]),
+          //ecoli:parseFloat(item["Ecoli (MPN/100mL)"].replace(">", "")),
+         
         };
       });
-
+        
       // Remove data points with NaN values
       ecoliData = ecoliData.filter(function (item) {
         return !isNaN(item.latitude) && !isNaN(item.ecoli);
@@ -149,6 +153,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
         var xAxis = d3.axisBottom(x);
         var yAxis = d3.axisLeft(y);
+
+        // Append X-axis label
+        svg.append("text")
+        .attr("transform", "translate(" + (width / 2) + " ," + (height + margin.top + 10) + ")")
+        .style("text-anchor", "middle")
+        .text("E. coli");
+
+        // Append Y-axis label
+        svg.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 0 - margin.left)
+            .attr("x", 0 - (height / 2))
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .text("Latitudes");
 
         svg.append("g")
             .attr("transform", "translate(0," + height + ")")
